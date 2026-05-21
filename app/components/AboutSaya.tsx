@@ -7,7 +7,7 @@ const brushFont = localFont({ src: '../../public/fonts/road-rage/road-rage.woff2
 
 export default function AboutSaya() {
   return (
-    <section className="relative w-full h-screen overflow-hidden flex flex-col justify-between p-8">
+    <section id="aboutsaya" className="relative w-full h-screen overflow-hidden flex flex-col justify-between p-8">
       
       {/* BACKGROUND IMAGE LAYER */}
       <div className="absolute inset-0 z-0">
@@ -34,25 +34,14 @@ export default function AboutSaya() {
         </button>
       </header>
 
-      {/* THE TYPOGRAPHY LAYER (BEHIND SAMURAI) */}
+      {/* THE TYPOGRAPHY LAYER */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
         <h1 className={`${brushFont.className} text-[12vw] text-white/90 text-center leading-none tracking-tight uppercase select-none`}>
         SAYALABS <br /> DIGITAL CRAFT
         </h1>
       </div>
 
-      {/* THE CHARACTER LAYER (IN FRONT OF TEXT) */}
-      <div className="absolute bottom-[-5vh] inset-x-0 flex justify-center z-20 pointer-events-noneSB">
-        <div className="relative w-[100vw] h-[95vh] md:w-[65vw] md:h-[90vh]">
-          <Image
-            src="/images/samurai.svg"
-            alt="Cyberpunk Samurai"
-            fill
-            priority
-            className="object-contain object-bottom scale-110 md:scale-125 origin-bottom"
-          />
-        </div>
-      </div>
+      {/* 3D Samurai model renders here via the fixed SamuraiScene overlay — no 2D image needed */}
 
       {/* FOOTER STATS & SOCIALS */}
       <footer className={`relative z-30 flex justify-between items-end w-full ${orbitron.className}`}>

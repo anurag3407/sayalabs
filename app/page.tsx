@@ -8,10 +8,13 @@ import Testimonials from "./components/Testimonials";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import AboutSaya from "./components/AboutSaya";
+import LenisProvider from "./components/LenisProvider";
+import SamuraiScene from "./components/SamuraiScene";
 
 export default function Home() {
   return (
-    <>
+    <LenisProvider>
+      <SamuraiScene />
       <Navbar />
       <Hero />
       <AboutSaya />
@@ -35,6 +38,6 @@ export default function Home() {
       <Contact />
 
       <Footer />
-    </>
+    </LenisProvider>
   );
 }

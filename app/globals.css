@@ -1416,3 +1416,139 @@ body {
     display: none;
   }
 }
+
+/* ============================================
+   LENIS SMOOTH SCROLL
+   ============================================ */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* ============================================
+   3D SAMURAI CANVAS OVERLAY
+   ============================================ */
+.samurai-canvas-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 15;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.samurai-canvas-container canvas {
+  pointer-events: none;
+}
+
+/* ============================================
+   MODEL LOADER
+   ============================================ */
+.model-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: var(--bg-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.8s var(--ease-smooth), visibility 0.8s;
+}
+
+.model-loader--hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.model-loader__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 280px;
+}
+
+/* Japanese decorative text */
+.model-loader__kanji {
+  font-family: var(--font-japanese);
+  font-size: 1rem;
+  color: var(--text-muted);
+  letter-spacing: 8px;
+  opacity: 0.4;
+  animation: glowPulse 2s ease-in-out infinite;
+}
+
+/* Brand name */
+.model-loader__brand {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  letter-spacing: 8px;
+  color: var(--text-primary);
+}
+
+/* Progress bar */
+.model-loader__bar-track {
+  width: 100%;
+  height: 2px;
+  background: var(--border-subtle);
+  overflow: hidden;
+  position: relative;
+}
+
+.model-loader__bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--crimson-dark), var(--crimson), var(--amber));
+  transition: width 0.3s var(--ease-smooth);
+  position: relative;
+}
+
+.model-loader__bar-fill::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: -4px;
+  width: 10px;
+  height: 10px;
+  background: var(--crimson);
+  border-radius: 50%;
+  box-shadow: 0 0 12px var(--crimson), 0 0 24px rgba(196, 30, 58, 0.4);
+}
+
+/* Percentage */
+.model-loader__percent {
+  font-family: var(--font-heading);
+  font-size: 3.5rem;
+  color: var(--text-primary);
+  line-height: 1;
+  letter-spacing: 2px;
+}
+
+.model-loader__percent-sign {
+  font-size: 1.5rem;
+  color: var(--crimson);
+  margin-left: 2px;
+}
+
+/* Loading text */
+.model-loader__text {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
