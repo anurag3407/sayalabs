@@ -21,7 +21,7 @@ export default function AboutSaya() {
       </div>
 
       {/* NAVBAR */}
-      <header className={`relative z-30 flex justify-between items-center w-full ${orbitron.className}`}>
+      {/* <header className={`relative z-30 flex justify-between items-center w-full ${orbitron.className}`}>
         <div className="text-white font-bold tracking-wider text-xl">SAYALABS</div>
         <nav className="hidden md:flex space-x-8 text-gray-400 text-xs tracking-widest uppercase">
           <a href="#" className="hover:text-white transition">Mastery</a>
@@ -32,10 +32,10 @@ export default function AboutSaya() {
         <button className="border border-red-600/50 bg-red-950/30 text-white px-6 py-2 text-xs uppercase tracking-widest rounded hover:bg-red-600 transition">
           Contact Us
         </button>
-      </header>
+      </header> */}
 
       {/* THE TYPOGRAPHY LAYER */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-[2]">
         <h1 className={`${brushFont.className} text-[12vw] text-white/90 text-center leading-none tracking-tight uppercase select-none`}>
         SAYALABS <br /> DIGITAL CRAFT
         </h1>

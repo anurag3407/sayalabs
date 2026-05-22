@@ -9,12 +9,22 @@ export default function ModelLoader() {
   const [fadeOut, setFadeOut] = useState(false);
 
   useEffect(() => {
-    if (!active && progress === 100) {
+    // Hide the loader when it's no longer active (meaning loading finished or failed)
+    if (!active) {
       setFadeOut(true);
       const timer = setTimeout(() => setVisible(false), 800);
       return () => clearTimeout(timer);
     }
-  }, [active, progress]);
+  }, [active]);
+
+  // Safety fallback: Never block the screen for more than 5 seconds
+  useEffect(() => {
+    const fallbackTimer = setTimeout(() => {
+      setFadeOut(true);
+      setTimeout(() => setVisible(false), 800);
+    }, 5000);
+    return () => clearTimeout(fallbackTimer);
+  }, []);
 
   if (!visible) return null;
 
