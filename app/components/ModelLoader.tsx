@@ -11,9 +11,15 @@ export default function ModelLoader() {
   useEffect(() => {
     // Hide the loader when it's no longer active (meaning loading finished or failed)
     if (!active) {
-      setFadeOut(true);
-      const timer = setTimeout(() => setVisible(false), 800);
-      return () => clearTimeout(timer);
+      let hideTimer: NodeJS.Timeout;
+      const timer = setTimeout(() => {
+        setFadeOut(true);
+        hideTimer = setTimeout(() => setVisible(false), 800);
+      }, 0);
+      return () => {
+        clearTimeout(timer);
+        if (hideTimer) clearTimeout(hideTimer);
+      };
     }
   }, [active]);
 

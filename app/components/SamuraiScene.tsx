@@ -210,11 +210,18 @@ export default function SamuraiScene() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
     const check = () => setIsMobile(window.innerWidth < 768);
     check();
     window.addEventListener("resize", check);
-    return () => window.removeEventListener("resize", check);
+
+    const timer = setTimeout(() => {
+      setMounted(true);
+    }, 0);
+
+    return () => {
+      window.removeEventListener("resize", check);
+      clearTimeout(timer);
+    };
   }, []);
 
   if (!mounted) return null;
