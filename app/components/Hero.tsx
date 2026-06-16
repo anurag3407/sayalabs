@@ -1,13 +1,70 @@
+"use client";
+
 import Image from "next/image";
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import SplitText from "./SplitText";
+import MagneticButton from "./MagneticButton";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 export default function Hero() {
+  const heroRef = useRef<HTMLElement>(null);
+  const bgRef = useRef<HTMLDivElement>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
+  const sideLeftRef = useRef<HTMLSpanElement>(null);
+  const sideRightRef = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Background slow parallax
+      gsap.to(bgRef.current, {
+        yPercent: 18,
+        ease: "none",
+        scrollTrigger: {
+          trigger: heroRef.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: 0.6,
+        },
+      });
+      // Overlay deepens on scroll
+      gsap.to(overlayRef.current, {
+        opacity: 1.4,
+        ease: "none",
+        scrollTrigger: {
+          trigger: heroRef.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: 0.6,
+        },
+      });
+      // Side kanji floats up
+      gsap.to([sideLeftRef.current, sideRightRef.current], {
+        y: -120,
+        opacity: 0,
+        ease: "none",
+        scrollTrigger: {
+          trigger: heroRef.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: 0.4,
+        },
+      });
+    }, heroRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className="hero" id="home">
-      {/* Background Image */}
-      <div className="hero-bg">
+    <section ref={heroRef} className="hero" id="home">
+      <div ref={bgRef} className="hero-bg">
         <Image
           src="/images/hero2.svg"
-          alt="Japanese shrine at night with cherry blossoms"
+          alt=""
           fill
           priority
           quality={90}
@@ -16,40 +73,79 @@ export default function Hero() {
         />
       </div>
 
-      {/* Overlays */}
-      <div className="hero-overlay" />
+      <div ref={overlayRef} className="hero-overlay" />
       <div className="hero-grid-overlay" />
 
-      {/* Side decorative text */}
-      <span className="hero-side-text left">武士道精神</span>
-      <span className="hero-side-text right">創造と革新</span>
+      <span ref={sideLeftRef} className="hero-side-text left">武士道精神</span>
+      <span ref={sideRightRef} className="hero-side-text right">創造と革新</span>
 
-      {/* Main Content */}
-      <div className="hero-content">
-        <div className="hero-tag">Digital Craft Studio</div>
+      <div className="container hero-content">
+        <SplitText
+          as="div"
+          className="hero-tag"
+          split="words"
+          stagger={0.05}
+          duration={1.1}
+          triggerOnScroll={false}
+          delay={0.2}
+        >
+          Digital Craft Studio
+        </SplitText>
 
         <h1 className="hero-title">
-          SAYA<br />
-          <span className="accent">LABS</span>
+          <SplitText
+            as="span"
+            split="chars"
+            stagger={0.04}
+            duration={1.2}
+            triggerOnScroll={false}
+            delay={0.4}
+          >
+            SAYA
+          </SplitText>
+          <br />
+          <span className="accent">
+            <SplitText
+              as="span"
+              split="chars"
+              stagger={0.04}
+              duration={1.2}
+              triggerOnScroll={false}
+              delay={0.6}
+            >
+              LABS
+            </SplitText>
+          </span>
         </h1>
 
-        <p className="hero-subtitle">
-          We forge extraordinary digital experiences — blending timeless design
-          philosophy with cutting-edge technology to build brands that command
-          attention and inspire action.
-        </p>
+        <SplitText
+          as="p"
+          className="hero-subtitle"
+          split="words"
+          stagger={0.025}
+          duration={0.95}
+          triggerOnScroll={false}
+          delay={1.05}
+        >
+          We forge extraordinary digital experiences — blending timeless design philosophy with cutting-edge technology to build brands that command attention and inspire action.
+        </SplitText>
 
         <div className="hero-actions">
-          <a href="#contact" className="btn-primary">
+          <MagneticButton href="#contact" className="btn-primary">
             Start Your Journey
-          </a>
-          <a href="#work" className="btn-secondary">
+          </MagneticButton>
+          <MagneticButton href="#work" className="btn-secondary">
             View Our Work
-          </a>
+          </MagneticButton>
         </div>
       </div>
 
-      {/* Scroll Indicator */}
+      <div className="hero-meta-strip">
+        <span><span className="dot" /> Tokyo / Worldwide</span>
+        <span>Established 2026</span>
+        <span>Design · Development · SEO</span>
+      </div>
+
       <div className="hero-scroll-indicator">
         <span>Scroll</span>
         <div className="scroll-line" />

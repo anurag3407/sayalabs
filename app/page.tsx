@@ -10,31 +10,40 @@ import Footer from "./components/Footer";
 import AboutSaya from "./components/AboutSaya";
 import LenisProvider from "./components/LenisProvider";
 import SamuraiScene from "./components/SamuraiScene";
+import MarqueeStrip from "./components/MarqueeStrip";
+import CustomCursor from "./components/CustomCursor";
+import ScrollProgress from "./components/ScrollProgress";
+import Preloader from "./components/Preloader";
 
 export default function Home() {
   return (
     <LenisProvider>
+      <Preloader />
+      <CustomCursor />
+      <ScrollProgress />
       <SamuraiScene />
       <Navbar />
       <Hero />
       <AboutSaya />
 
-      <div className="section-divider" />
+      <MarqueeStrip variant="primary" speed={45} />
+
       <Services />
 
-      <div className="section-divider" />
+      <MarqueeStrip variant="services" speed={50} direction="right" />
+
       <About />
 
-      <div className="section-divider" />
+      <MarqueeStrip variant="kanji" speed={55} />
+
       <Portfolio />
 
-      <div className="section-divider" />
+      <MarqueeStrip variant="outline" speed={45} direction="right" />
+
       <Process />
 
-      <div className="section-divider" />
       <Testimonials />
 
-      <div className="section-divider" />
       <Contact />
 
       <Footer />

@@ -1,88 +1,143 @@
-import Image from "next/image";
+"use client";
+
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import SplitText from "./SplitText";
+import RevealOnScroll from "./RevealOnScroll";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 const services = [
   {
     number: "01",
-    icon: "⛩",
-    title: "WEB DESIGN",
-    desc: "Crafting visually stunning, immersive interfaces that captivate users from the first pixel. Every detail is intentional, every interaction meaningful.",
-    link: "#contact",
+    kanji: "意匠",
+    title: "Web Design",
+    desc: "Visually striking, intentional interfaces. Editorial typography, considered motion, and an aesthetic that captures the soul of your brand.",
+    capabilities: ["Art Direction", "UI Systems", "Interaction Design", "Brand Worlds"],
   },
   {
     number: "02",
-    icon: "刀",
-    title: "DEVELOPMENT",
-    desc: "Engineering high-performance web applications with modern frameworks. Clean architecture, blazing speed, and bulletproof reliability.",
-    link: "#contact",
+    kanji: "技術",
+    title: "Development",
+    desc: "High-performance engineering with modern stacks — Next.js, React, headless CMS, Three.js, custom WebGL. Every byte considered, every interaction crafted.",
+    capabilities: ["Next.js / React", "Headless CMS", "WebGL / Three.js", "Performance"],
   },
   {
     number: "03",
-    icon: "紋",
-    title: "BRANDING",
-    desc: "Forging brand identities that resonate deeply. From logo systems to complete visual languages, we build brands that endure.",
-    link: "#contact",
+    kanji: "戦略",
+    title: "SEO & Strategy",
+    desc: "Visibility that compounds. Technical SEO foundations, semantic content architectures, and data-driven growth strategies that turn traffic into revenue.",
+    capabilities: ["Technical SEO", "Content Strategy", "Schema / Structured Data", "Analytics"],
   },
   {
     number: "04",
-    icon: "動",
-    title: "MOTION DESIGN",
-    desc: "Bringing interfaces to life with purposeful animation. Micro-interactions, scroll-driven narratives, and cinematic transitions.",
-    link: "#contact",
+    kanji: "動感",
+    title: "Motion Design",
+    desc: "Animations with intent. Scroll narratives, micro-interactions, cinematic page transitions — motion that earns its place on every frame.",
+    capabilities: ["GSAP Choreography", "WebGL Effects", "Scroll Stories", "Cinematic Loaders"],
   },
   {
     number: "05",
-    icon: "策",
-    title: "DIGITAL STRATEGY",
-    desc: "Data-driven strategies that amplify your digital presence. SEO, content architecture, and conversion optimization that delivers results.",
-    link: "#contact",
+    kanji: "象徴",
+    title: "Brand Identity",
+    desc: "Complete visual systems. Logo, type, color, voice, and a sustained language that ages well across every touchpoint your brand inhabits.",
+    capabilities: ["Logo Systems", "Typography", "Visual Language", "Guidelines"],
   },
   {
     number: "06",
-    icon: "守",
-    title: "UI/UX DESIGN",
-    desc: "Human-centered design that balances beauty with usability. Research-backed interfaces that users love to navigate.",
-    link: "#contact",
+    kanji: "完成",
+    title: "Launch & Care",
+    desc: "From hand-off to lift-off — rigorous QA, performance tuning, accessibility compliance, and ongoing partnership long after the launch champagne.",
+    capabilities: ["QA & Testing", "Accessibility", "Performance Audits", "Maintenance"],
   },
 ];
 
 export default function Services() {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const rows = sectionRef.current?.querySelectorAll<HTMLElement>(".service-row");
+      rows?.forEach((row) => {
+        const idx = row.querySelector(".service-row__index strong");
+        if (idx) {
+          gsap.from(idx, {
+            yPercent: 30,
+            opacity: 0,
+            duration: 1.2,
+            ease: "expo.out",
+            scrollTrigger: { trigger: row, start: "top 80%", once: true },
+          });
+        }
+        gsap.from(row.querySelectorAll(".service-row__list li"), {
+          y: 24,
+          opacity: 0,
+          duration: 0.7,
+          ease: "expo.out",
+          stagger: 0.08,
+          scrollTrigger: { trigger: row, start: "top 75%", once: true },
+        });
+      });
+    }, sectionRef);
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className="section" id="services">
-      {/* Background */}
-      <div className="section-bg">
-        <Image
-          src="/images/services_bg.png"
-          alt=""
-          fill
-          sizes="100vw"
-          style={{ objectFit: "cover", opacity: 0.12 }}
-        />
-        <div className="section-bg-overlay" />
-      </div>
-
-      {/* Decorative Kanji */}
-      <div className="section-kanji">奉仕</div>
-
+    <section ref={sectionRef} className="section services-section" id="services">
       <div className="container">
         <div className="section-header">
-          <div className="section-tag">What We Do</div>
-          <h2 className="section-title">OUR SERVICES</h2>
-          <p className="section-description">
-            Six disciplines. One philosophy. We approach every project with the
-            precision of a master craftsman — no shortcuts, no compromises.
-          </p>
+          <RevealOnScroll>
+            <div className="eyebrow">What We Do</div>
+          </RevealOnScroll>
+          <SplitText
+            as="h2"
+            className="section-title"
+            split="chars"
+            stagger={0.025}
+            duration={1.1}
+          >
+            DISCIPLINES
+          </SplitText>
+          <RevealOnScroll y={30} delay={0.2}>
+            <p className="section-description">
+              Six disciplines. One philosophy. We approach every project with the precision of a master craftsman — no shortcuts, no compromises.
+            </p>
+          </RevealOnScroll>
         </div>
 
-        <div className="services-grid">
-          {services.map((service) => (
-            <div key={service.number} className="service-card">
-              <div className="service-number">{service.number}</div>
-              <span className="service-icon">{service.icon}</span>
-              <h3 className="service-title">{service.title}</h3>
-              <p className="service-desc">{service.desc}</p>
-              <a href={service.link} className="service-link">
-                Learn More
-              </a>
+        <div className="services-list">
+          {services.map((s, i) => (
+            <div
+              key={s.number}
+              className={`service-row ${i % 2 === 1 ? "service-row--reverse" : ""}`}
+            >
+              <div className="service-row__index">
+                <div>
+                  <span className="kanji">{s.kanji}</span>
+                  <span className="label">Discipline {s.number}</span>
+                  <strong>{s.number}</strong>
+                </div>
+              </div>
+              <div className="service-row__body">
+                <SplitText
+                  as="h3"
+                  className="service-row__title"
+                  split="words"
+                  stagger={0.04}
+                  duration={1}
+                >
+                  {s.title}
+                </SplitText>
+                <p className="service-row__desc">{s.desc}</p>
+                <ul className="service-row__list">
+                  {s.capabilities.map((c) => (
+                    <li key={c}>{c}</li>
+                  ))}
+                </ul>
+              </div>
             </div>
           ))}
         </div>

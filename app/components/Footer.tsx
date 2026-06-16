@@ -1,73 +1,80 @@
+"use client";
+
+import SplitText from "./SplitText";
+import RevealOnScroll from "./RevealOnScroll";
+import Marquee from "./Marquee";
+
 export default function Footer() {
   return (
     <footer className="footer" id="footer">
-      <div className="footer-content">
-        {/* Brand Column */}
-        <div className="footer-brand">
-          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-            <span
-              style={{
-                fontFamily: "var(--font-japanese)",
-                fontSize: "1.3rem",
-                color: "var(--crimson)",
-              }}
-            >
-              鍛
-            </span>
-            <span className="footer-brand-name">SAYA LABS</span>
-          </div>
-          <p className="footer-brand-desc">
-            A digital craft studio forging extraordinary experiences with
-            precision, artistry, and an uncompromising pursuit of excellence.
-          </p>
-        </div>
+      <div className="container" style={{ textAlign: "center" }}>
+        <RevealOnScroll>
+          <div className="eyebrow" style={{ justifyContent: "center" }}>Saya Labs · Est 2026</div>
+        </RevealOnScroll>
+      </div>
 
-        {/* Navigation */}
-        <div>
-          <h4 className="footer-col-title">Navigation</h4>
-          <ul className="footer-links">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#work">Work</a></li>
-            <li><a href="#contact">Contact</a></li>
+      <h2 className="footer-wordmark">
+        <SplitText as="span" split="chars" stagger={0.04} duration={1.4}>
+          SAYA
+        </SplitText>
+        <br />
+        <span className="stroke">
+          <SplitText as="span" split="chars" stagger={0.04} duration={1.4}>
+            LABS
+          </SplitText>
+        </span>
+      </h2>
+
+      <div style={{ borderTop: "1px solid var(--border-subtle)", padding: "40px 0", margin: "60px 0 0" }}>
+        <Marquee
+          speed={50}
+          items={[
+            <span key="m1" className="marquee-text">FORGED IN TOKYO</span>,
+            <span key="s1" className="marquee-sep" />,
+            <span key="m2" className="marquee-text marquee-text--outline">CRAFTED FOR THE WORLD</span>,
+            <span key="s2" className="marquee-sep" />,
+            <span key="m3" className="marquee-kanji">鍛造</span>,
+            <span key="s3" className="marquee-sep" />,
+            <span key="m4" className="marquee-text marquee-text--accent">SAYA LABS</span>,
+            <span key="s4" className="marquee-sep" />,
+            <span key="m5" className="marquee-kanji">創造</span>,
+            <span key="s5" className="marquee-sep" />,
+          ]}
+        />
+      </div>
+
+      <div className="footer-row" style={{ marginTop: 80 }}>
+        <div className="footer-col">
+          <h4>Studio</h4>
+          <ul>
+            <li><a href="#home" data-cursor="link">Home</a></li>
+            <li><a href="#services" data-cursor="link">Services</a></li>
+            <li><a href="#about" data-cursor="link">About</a></li>
+            <li><a href="#work" data-cursor="link">Work</a></li>
           </ul>
         </div>
-
-        {/* Services */}
-        <div>
-          <h4 className="footer-col-title">Services</h4>
-          <ul className="footer-links">
-            <li><a href="#services">Web Design</a></li>
-            <li><a href="#services">Development</a></li>
-            <li><a href="#services">Branding</a></li>
-            <li><a href="#services">Motion Design</a></li>
-            <li><a href="#services">UI/UX Design</a></li>
+        <div className="footer-col">
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="mailto:hello@sayalabs.com" data-cursor="link">hello@sayalabs.com</a></li>
+            <li><a href="tel:+1234567890" data-cursor="link">+1 234 567 890</a></li>
+            <li><a href="#contact" data-cursor="link">Start a Project</a></li>
           </ul>
         </div>
-
-        {/* Contact */}
-        <div>
-          <h4 className="footer-col-title">Contact</h4>
-          <ul className="footer-links">
-            <li><a href="mailto:hello@sayalabs.com">hello@sayalabs.com</a></li>
-            <li><a href="tel:+1234567890">+1 (234) 567-890</a></li>
-            <li><a href="#">Tokyo, Japan</a></li>
+        <div className="footer-col">
+          <h4>Social</h4>
+          <ul>
+            <li><a href="#" data-cursor="link">Twitter / X</a></li>
+            <li><a href="#" data-cursor="link">Dribbble</a></li>
+            <li><a href="#" data-cursor="link">LinkedIn</a></li>
+            <li><a href="#" data-cursor="link">GitHub</a></li>
           </ul>
         </div>
       </div>
 
-      {/* Bottom Bar */}
       <div className="footer-bottom">
-        <span className="footer-copyright">
-          © {new Date().getFullYear()} Saya Labs. All rights reserved.
-        </span>
-        <div className="footer-socials">
-          <a href="#">Twitter</a>
-          <a href="#">Dribbble</a>
-          <a href="#">LinkedIn</a>
-          <a href="#">GitHub</a>
-        </div>
+        <span>© {new Date().getFullYear()} Saya Labs · All rights reserved</span>
+        <span>Designed &amp; built in Tokyo / Worldwide</span>
       </div>
     </footer>
   );
