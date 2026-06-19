@@ -10,6 +10,7 @@ type Props = {
   href?: string;
   onClick?: () => void;
   as?: "button" | "a";
+  style?: React.CSSProperties;
 };
 
 /**
@@ -24,6 +25,7 @@ export default function MagneticButton({
   href,
   onClick,
   as,
+  style,
 }: Props) {
   const wrapRef = useRef<HTMLElement>(null);
   const innerRef = useRef<HTMLSpanElement>(null);
@@ -66,6 +68,7 @@ export default function MagneticButton({
     className: `magnetic-btn ${className}`,
     "data-cursor": "magnetic",
     onClick,
+    style,
   };
   if (Tag === "a" && href) props.href = href;
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import LenisProvider from "../components/LenisProvider";
@@ -16,85 +16,46 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-type Repo = {
-  kanji: string;
-  name: string;
-  tagline: string;
-  desc: string;
-  tags: string[];
-  stars: string;
-  lang: string;
-  mesh: string;
-};
-
-const repos: Repo[] = [
-  {
-    kanji: "折",
-    name: "origami",
-    tagline: "Scroll choreography, 4kb.",
-    desc: "Declarative scroll-driven animation on top of the Web Animations API. No dependencies, buttery on mobile, framework-agnostic.",
-    tags: ["TypeScript", "WAAPI", "Zero-dep"],
-    stars: "2.1k",
-    lang: "TypeScript",
-    mesh: "mesh-gradient--crimson",
-  },
-  {
-    kanji: "鍔",
-    name: "tsuba",
-    tagline: "Headless, motion-first UI.",
-    desc: "A headless React component library forged for motion-first interfaces — accessible primitives, your styles, our springs.",
-    tags: ["React", "A11y", "Headless"],
-    stars: "1.7k",
-    lang: "TypeScript",
-    mesh: "mesh-gradient--gold",
-  },
-  {
-    kanji: "墨",
-    name: "sumi",
-    tagline: "Ink-wash backgrounds.",
-    desc: "Generate cinematic mesh-gradient, grain and ink-wash backgrounds as SVG or canvas — the exact look across this very site.",
-    tags: ["Canvas", "SVG", "Generative"],
-    stars: "940",
-    lang: "JavaScript",
-    mesh: "mesh-gradient--indigo",
-  },
-  {
-    kanji: "柱",
-    name: "hashira",
-    tagline: "The luxury Next.js starter.",
-    desc: "An opinionated Next.js starter with Lenis smooth scroll, GSAP, a custom cursor and a complete dark luxury design system baked in.",
-    tags: ["Next.js", "GSAP", "Lenis"],
-    stars: "1.3k",
-    lang: "TypeScript",
-    mesh: "mesh-gradient--emerald",
-  },
-  {
-    kanji: "刀",
-    name: "katana",
-    tagline: "Ship fast or don't ship.",
-    desc: "A performance-budget guardian for CI — Lighthouse assertions with a blade that fails the build when a page gets slow.",
-    tags: ["CI", "Node", "Perf"],
-    stars: "1.1k",
-    lang: "TypeScript",
-    mesh: "mesh-gradient--crimson",
-  },
-  {
-    kanji: "継",
-    name: "kintsugi",
-    tagline: "Layouts that own the seams.",
-    desc: "A tiny layout engine for broken-grid and masonry compositions that celebrate the cracks instead of hiding them.",
-    tags: ["CSS", "Vanilla JS"],
-    stars: "620",
-    lang: "CSS",
-    mesh: "mesh-gradient--gold",
-  },
-];
+import Link from "next/link";
+import { type Repo, repos } from "./data";
 
 const values = [
   { kanji: "無", t: "Free, forever", d: "No paywalls, no premium tier, no rug-pull. What we open-source stays open." },
   { kanji: "信", t: "MIT licensed", d: "Fork it, ship it, sell it. Attribution is appreciated, never required." },
   { kanji: "公", t: "Built in public", d: "Roadmaps, RFCs and ugly first drafts — out in the open from commit one." },
 ];
+
+function RepoCard({ r }: { r: Repo }) {
+  return (
+    <Link 
+      href={`/community/${r.slug}`}
+      className={`repo-card mesh-gradient mesh-gradient--animated ${r.mesh}`} 
+      data-cursor="link"
+    >
+      <span
+        className="bg-dot-grid bg-field-mask"
+        style={{ position: "absolute", inset: 0, zIndex: 1, pointerEvents: "none", opacity: 0.45 }}
+      />
+      <div className="repo-card__cap" style={{ background: "transparent" }}>
+        <span className="repo-card__kanji">{r.kanji}</span>
+        <span className="repo-card__star">★ {r.stars}</span>
+      </div>
+      <div className="repo-card__body" style={{ position: "relative", zIndex: 2 }}>
+        <div className="repo-card__namerow">
+          <h3 className="repo-card__name">{r.name}</h3>
+          <span className="repo-card__lang"><i className="dot" /> {r.lang}</span>
+        </div>
+        <p className="repo-card__tagline">{r.tagline}</p>
+        <div className="repo-card__tags" style={{ marginTop: "12px" }}>
+          {r.tags.map((t) => (
+            <span key={t} className="repo-tag">{t}</span>
+          ))}
+        </div>
+        <span className="repo-card__go" style={{ marginTop: "18px", display: "inline-block" }}>View Details →</span>
+      </div>
+    </Link>
+  );
+}
 
 export default function CommunityPage() {
   const gridRef = useRef<HTMLDivElement>(null);
@@ -185,30 +146,7 @@ export default function CommunityPage() {
 
           <div ref={gridRef} className="repo-grid">
             {repos.map((r) => (
-              <a key={r.name} href="https://github.com" className="repo-card" data-cursor="link">
-                <div className={`repo-card__cap mesh-gradient mesh-gradient--animated ${r.mesh}`}>
-                  <span
-                    className="bg-line-grid bg-field-mask"
-                    style={{ position: "absolute", inset: 0, zIndex: 1, pointerEvents: "none", opacity: 0.45 }}
-                  />
-                  <span className="repo-card__kanji">{r.kanji}</span>
-                  <span className="repo-card__star">★ {r.stars}</span>
-                </div>
-                <div className="repo-card__body">
-                  <div className="repo-card__namerow">
-                    <h3 className="repo-card__name">{r.name}</h3>
-                    <span className="repo-card__lang"><i className="dot" /> {r.lang}</span>
-                  </div>
-                  <p className="repo-card__tagline">{r.tagline}</p>
-                  <p className="repo-card__desc">{r.desc}</p>
-                  <div className="repo-card__tags">
-                    {r.tags.map((t) => (
-                      <span key={t} className="repo-tag">{t}</span>
-                    ))}
-                  </div>
-                  <span className="repo-card__go">View on GitHub →</span>
-                </div>
-              </a>
+              <RepoCard key={r.name} r={r} />
             ))}
           </div>
         </section>
