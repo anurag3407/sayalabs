@@ -47,10 +47,11 @@ export default function Footer() {
         <div className="footer-col">
           <h4>Studio</h4>
           <ul>
-            <li><a href="#home" data-cursor="link">Home</a></li>
-            <li><a href="#services" data-cursor="link">Services</a></li>
-            <li><a href="#about" data-cursor="link">About</a></li>
-            <li><a href="#work" data-cursor="link">Work</a></li>
+            <li><a href="/#home" data-cursor="link">Home</a></li>
+            <li><a href="/#services" data-cursor="link">Craft</a></li>
+            <li><a href="/work-with-us" data-cursor="link">Work With Us</a></li>
+            <li><a href="/community" data-cursor="link">Community</a></li>
+            <li><a href="/projects" data-cursor="link">Work</a></li>
           </ul>
         </div>
         <div className="footer-col">
@@ -58,7 +59,7 @@ export default function Footer() {
           <ul>
             <li><a href="mailto:hello@sayalabs.com" data-cursor="link">hello@sayalabs.com</a></li>
             <li><a href="tel:+1234567890" data-cursor="link">+1 234 567 890</a></li>
-            <li><a href="#contact" data-cursor="link">Start a Project</a></li>
+            <li><a href="/#contact" data-cursor="link">Start a Project</a></li>
           </ul>
         </div>
         <div className="footer-col">

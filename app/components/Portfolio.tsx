@@ -92,17 +92,21 @@ export default function Portfolio() {
       <div className="container">
         <div className="section-header">
           <RevealOnScroll>
-            <div className="eyebrow">Selected Work</div>
+            <div className="eyebrow">Selected Work — 2025 / 2026</div>
           </RevealOnScroll>
           <SplitText as="h2" className="section-title" split="chars" stagger={0.025}>
             PORTFOLIO
           </SplitText>
           <RevealOnScroll y={30} delay={0.2}>
             <p className="section-description">
-              A curated selection of projects where precision meets creativity. Each piece is a chapter in our pursuit of craft.
+              A deliberately small roster of work — case studies in restraint,
+              motion, and brands that earned a second look. Each one a chapter
+              in a shared notebook.
             </p>
           </RevealOnScroll>
         </div>
+
+        <div className="portfolio-divider">— Featured engagement —</div>
 
         <a className="portfolio-featured" href="#contact" data-cursor="text" data-cursor-label="VIEW CASE">
           <Image
@@ -115,13 +119,15 @@ export default function Portfolio() {
           />
           <div className="portfolio-featured-overlay">
             <div className="portfolio-featured-meta">
-              <span>{featured.category}</span>
+              <span className="gold">{featured.category}</span>
               <span>{featured.client}</span>
             </div>
             <h3 className="portfolio-featured-title">{featured.title}</h3>
             <p className="portfolio-featured-desc">{featured.desc}</p>
           </div>
         </a>
+
+        <div className="portfolio-divider">— More from the archive —</div>
 
         <div className="portfolio-asym">
           <div className="portfolio-asym__col">
