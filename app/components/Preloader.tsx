@@ -38,6 +38,7 @@ export default function Preloader() {
       const elapsed = performance.now() - start;
       const wait = Math.max(0, minShowMs - elapsed);
       window.setTimeout(() => {
+        if (!kanji.current || !word1.current || !word2.current || !line.current || !root.current) return;
         const exit = gsap.timeline({
           onComplete: () => {
             document.documentElement.classList.remove("preloading");
